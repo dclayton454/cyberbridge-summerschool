@@ -1,0 +1,29 @@
+🕵️ Threat Actor Profile: APT-GonePhishing
+Overview:
+APT-GonePhishing is a cyber-espionage group notorious for its deeply engineered social engineering campaigns. Active since 2017, this group specializes in long-term phishing operations tailored to compromise executives, diplomatic staff, and key personnel in supply chain management roles. Their strength lies in highly believable phishing lures combined with multi-phase attack chains. Believed to operate out of Eastern Europe, APT-GonePhishing focuses on sectors such as government, finance, defense contracting, and maritime logistics.
+
+Motivation:
+Primarily espionage and strategic intelligence gathering, though occasional signs of financial gain via secondary monetization (e.g., ransomware deployment) have been noted.
+
+Unique Characteristics:
+
+Employs linguistically localized lures with regional dialects and cultural references.
+
+Often creates entire fake companies or NGOs to support phishing infrastructure.
+
+Frequently abuses legitimate marketing platforms (Mailchimp, Brevo, SendGrid) to distribute payloads.
+
+Known for stealthy lateral movement using browser cookie theft and OAuth token abuse.
+
+🧰 Tactics, Techniques, and Procedures
+Technique ID	Technique	Description of Technique	Tools Used
+T1566.001	Phishing: Spearphishing Attachment	Delivers customized Office documents exploiting Follina (CVE-2022-30190) and more recent 1-day vulnerabilities.	"NetCourier", malicious Office macros, Cobalt Strike
+T1585.001	Establish Accounts: Social Media Accounts	Builds fake LinkedIn and Twitter personas of fake recruiters or partner firms to increase phishing credibility.	Sock puppet profiles, FakeCompanyWeb CMS
+T1203	Exploitation for Client Execution	Exploits vulnerabilities in Outlook, Word, and browser plugins during phishing execution phase.	Custom Follina-like loaders, modified "SharpShooter"
+T1056.001	Input Capture: Keylogging	Uses stealthy keyloggers embedded in macro payloads post-initial compromise.	KeySniff, PredatorLogs
+T1550.001	Use Alternate Authentication Material: Web Session Cookie	Harvests session cookies from browsers to bypass MFA.	Evilginx2, CookieMonster
+T1071.003	Application Layer Protocol: Mail Protocols	Uses SMTP and IMAP for C2 channel by embedding commands in email drafts to evade detection.	"MailGhost", custom IMAP tunnels
+T1560.002	Archive Collected Data: Archive via Utility	Archives exfiltrated files into encrypted 7z or rar archives with steganographic images.	7-Zip, StegoPack
+T1041	Exfiltration Over C2 Channel	Sends encrypted data over HTTPS using domain fronting.	DNSCat2, HTTPS stager, CloudFront
+T1110.003	Brute Force: Password Spraying	Conducts stealthy password spray attacks across OWA and VPN portals during initial reconnaissance.	SprayJack, Go365Spray
+T1078.004	Valid Accounts: Cloud Accounts	Compromises cloud accounts to maintain persistence and pivot laterally.	TokenJack, SAMLJacker
